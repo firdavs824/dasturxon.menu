@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dasturxon Menu - Milliy Taomlar Menusi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="logo">
+        <i class="fa-solid fa-utensils"></i>
+        <span>DASTURXON <span>MENU</span></span>
+      </div>
+      
+      <div class="header-center">
+        <div class="header-info">
+          <span class="work-time"><i class="fa-regular fa-clock"></i> 09:00 - 23:00</span>
+          <a href="tel:+998972961117" class="phone-link"><i class="fa-solid fa-phone"></i>+998-97-296-11-17</a>
+        </div>
+
+        <div class="search-container" id="searchContainer">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Taom, ichimlik yoki energetik izlash..." autocomplete="off" aria-label="Qidirish">
+          <button type="button" class="clear-search-btn" id="clearSearchBtn" title="Qidiruvni tozalash" style="display: none;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <span class="search-kbd-hint"><kbd>/</kbd></span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="tel:+998972961117" class="mobile-phone-btn" title="Telefon qilish" aria-label="Telefon qilish">
+          <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="admin.html" class="admin-nav-btn" title="Admin Panel">
+          <i class="fa-solid fa-shield-halved"></i>
+        </a>
+
+        <button class="order-nav-btn" id="openCartBtn" title="Buyurtmani ko'rish va rasmiylashtirish">
+          <i class="fa-solid fa-receipt"></i>
+          <div class="order-btn-details">
+            <span class="order-btn-title">Buyurtma</span>
+            <span class="order-btn-amount" id="headerOrderSum">0 so'm</span>
+          </div>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="promo-slider-container">
+
+        <!-- Slider O'q/Keyingi tugmalari -->
+        <button class="slider-arrow prev" onclick="prevSlide()" title="Oldingi taklif">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="slider-arrow next" onclick="nextSlide()" title="Keyingi taklif">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Slide soni indikatori -->
+        <div class="slider-counter" id="sliderCounter">1 / 8</div>
+
+        <!-- Progress bar -->
+        <div class="slider-progress" id="sliderProgress"></div>
+
+        <div class="promo-slider" id="promoslider">
+
+          <!-- Slide 1: Toshkentcha Osh -->
+          <div class="promo-slide active">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=1400&q=90" alt="Toshkentcha To'y Oshi">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-fire"></i> KUN TAOMI</div>
+              <h2>Toshkentcha To'y Oshi + Bepul Choy!</h2>
+              <p class="promo-desc">Bugun soat 15:00 gacha maxsus osh buyurtma qiling va xushbo'y ko'k choyni sovg'a sifatida oling.</p>
+              <div class="promo-details"><i class="fa-solid fa-utensils"></i> Devzira guruch, qazi, sara go'sht, bedana tuxumi</div>
+              <button class="promo-btn" onclick="addToCart(1)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=700&q=90" alt="Toshkentcha To'y Oshi">
+            </div>
+          </div>
+
+          <!-- Slide 2: Shashlik Set -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=90" alt="G'ijduvon Shashlik Set">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-percent"></i> MAXSUS TAKLIF</div>
+              <h2>5 ta Shashlik Buyurtma Qiling + Achchiq-Chuchuk Bepul!</h2>
+              <p class="promo-desc">Sersuv qo'y go'shti shashliklaridan bahramand bo'ling va yangi uzilgan pomidorli salatga ega bo'ling.</p>
+              <div class="promo-details"><i class="fa-solid fa-pepper-hot"></i> Maza va sharbatga boy qiyma shashlik</div>
+              <button class="promo-btn" onclick="addToCart(2)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=90" alt="G'ijduvon Shashlik">
+            </div>
+          </div>
+
+          <!-- Slide 3: Qozon Kabob Combo -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=90" alt="Qozon Kabob Combo">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-bolt"></i> OILA BO'LIB</div>
+              <h2>Qozon Kabob Combo Set — 15% Chegirma!</h2>
+              <p class="promo-desc">Yumshoq pishgan go'sht va qarsildoq kartoshkalar jamlanmasi oilaviy tushlik uchun ideal tanlov.</p>
+              <div class="promo-details"><i class="fa-solid fa-drumstick-bite"></i> 2 kishilik porsiya + salat</div>
+              <button class="promo-btn" onclick="addToCart(3)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=90" alt="Qozon Kabob">
+            </div>
+          </div>
+
+          <!-- Slide 4: Jizzaxcha Tandir Go'sht -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?auto=format&fit=crop&w=1400&q=90" alt="Jizzaxcha Tandir Go'sht">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-crown"></i> SHOXONA TANDIR</div>
+              <h2>Jizzaxcha Tandir Go'sht — 20% Chegirma!</h2>
+              <p class="promo-desc">Tandirda archa shoxi tutunida dimlangan xushbo'y go'sht + yangi pishgan issiq tandir non sovg'a.</p>
+              <div class="promo-details"><i class="fa-solid fa-award"></i> Tabiiy sara qo'y go'shti va piyoz</div>
+              <button class="promo-btn" onclick="addToCart(10)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?auto=format&fit=crop&w=700&q=90" alt="Tandir Go'sht">
+            </div>
+          </div>
+
+          <!-- Slide 5: Shirin Manti Seti -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1400&q=90" alt="Manti Seti">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-kitchen-set"></i> XONADON TAOMI</div>
+              <h2>Manti Seti (5 dona) + Qatiq &amp; Sous Bepul!</h2>
+              <p class="promo-desc">Qo'lda to'g'ralgan sersuv barra go'sht va yupqa xamir bilan bug'da pishirilgan tansiq manti.</p>
+              <div class="promo-details"><i class="fa-solid fa-bowl-food"></i> Qatiq, sarimsoqli va achchiq souslar jamlanmasi</div>
+              <button class="promo-btn" onclick="addToCart(11)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=90" alt="Manti">
+            </div>
+          </div>
+
+          <!-- Slide 6: Choyxona Sho'rvasi + Somsa Combo -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1588566565463-180a5b2090d2?auto=format&fit=crop&w=1400&q=90" alt="Sho'rva va Somsa">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-heart"></i> ISITUVCHI KOMBO</div>
+              <h2>Choyxona Sho'rvasi + Qatlama Somsa Seti</h2>
+              <p class="promo-desc">Tiniq qaynatilgan barra sho'rva va tandirda qizargan qat-qat go'shtli issiq somsa kombinatsiyasi.</p>
+              <div class="promo-details"><i class="fa-solid fa-mug-hot"></i> Sho'rva + qarsildoq go'shtli somsa</div>
+              <button class="promo-btn" onclick="addToCart(7)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1588566565463-180a5b2090d2?auto=format&fit=crop&w=700&q=90" alt="Sho'rva">
+            </div>
+          </div>
+
+          <!-- Slide 7: Tovuq Shashlik Assorti -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=1400&q=90" alt="Tovuq Shashlik">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-feather"></i> YENGIL VA SERSUV</div>
+              <h2>Tovuq Shashlik Set + Limonli Choy Sovg'a!</h2>
+              <p class="promo-desc">Maxsus marinadlangan yumshoq tovuq go'shti kabobi bilan tushlikni yanada maroqli o'tkazing.</p>
+              <div class="promo-details"><i class="fa-solid fa-lemon"></i> 3 dona shashlik + ko'katli sous</div>
+              <button class="promo-btn" onclick="addToCart(8)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=90" alt="Tovuq Shashlik">
+            </div>
+          </div>
+
+          <!-- Slide 8: Paxlava & Choy -->
+          <div class="promo-slide">
+            <div class="promo-slide-bg">
+              <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=1400&q=90" alt="Asalli Paxlava">
+            </div>
+            <div class="promo-slide-overlay"></div>
+            <div class="promo-content">
+              <div class="promo-badge"><i class="fa-solid fa-mug-hot"></i> SHIRINLIK VA CHOY</div>
+              <h2>Asalli Paxlava + Ko'k Choy &amp; Navot Seti</h2>
+              <p class="promo-desc">Kunning ikkinchi yarmida shirin hordiq chiqarish uchun maxsus tayyorlangan milliylik ulushi.</p>
+              <div class="promo-details"><i class="fa-solid fa-cookie"></i> Tabiiy tog' asali, yong'oq va xushbo'y choy</div>
+              <button class="promo-btn" onclick="addToCart(9)">
+                <i class="fa-solid fa-plus"></i> Buyurtma berish
+              </button>
+            </div>
+            <div class="promo-image">
+              <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=700&q=90" alt="Asalli Paxlava">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Slayder navigatsiya nuqtalari -->
+        <div class="slider-dots" id="sliderDots">
+          <span class="dot active" onclick="goToSlide(0)"></span>
+          <span class="dot" onclick="goToSlide(1)"></span>
+          <span class="dot" onclick="goToSlide(2)"></span>
+          <span class="dot" onclick="goToSlide(3)"></span>
+          <span class="dot" onclick="goToSlide(4)"></span>
+          <span class="dot" onclick="goToSlide(5)"></span>
+          <span class="dot" onclick="goToSlide(6)"></span>
+          <span class="dot" onclick="goToSlide(7)"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container main-content">
+    
+    <!-- MOBIL QIDIRUV PANELI -->
+    <div class="mobile-search-wrapper">
+      <div class="search-container mobile-search">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="mobileSearchInput" placeholder="Menudan qidirish (Taom, ichimlik, shirinlik)..." autocomplete="off" aria-label="Mobil qidiruv">
+        <button type="button" class="clear-search-btn" id="clearMobileSearchBtn" title="Qidiruvni tozalash" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- KATEGORIYA TUGMALARI -->
+    <nav class="category-tabs" id="categoryTabs">
+      <button class="tab-btn active" data-category="all">Hammasi</button>
+      <button class="tab-btn" data-category="milliy">Milliy Taomlar</button>
+      <button class="tab-btn" data-category="kabob">Kabob & Shashlik</button>
+      <button class="tab-btn" data-category="suyuq">Suyuq Taomlar</button>
+      <button class="tab-btn" data-category="salat">Salatlar</button>
+      <button class="tab-btn" data-category="ichimlik">☕ Issiq Choylar</button>
+      <button class="tab-btn" data-category="salqin">🥤 Salqin Ichimliklar</button>
+      <button class="tab-btn" data-category="energetik">⚡ Energetiklar</button>
+      <button class="tab-btn" data-category="shirinlik">🍰 Shirinliklar</button>
+    </nav>
+
+    <div class="menu-grid" id="menuGrid"></div>
+  </main>
+
+  <!-- FLOATING QUICK ORDER BAR (PASTKI TEZKOR BUYURTMA TUGMASI) -->
+  <div class="floating-order-bar" id="floatingOrderBar">
+    <div class="floating-order-info" id="floatingOrderInfo">
+      <div class="floating-icon-wrap">
+        <i class="fa-solid fa-receipt"></i>
+        <span class="floating-badge" id="floatingCount">0</span>
+      </div>
+      <div class="floating-text">
+        <span class="floating-label">Sizning buyurtmangiz:</span>
+        <strong class="floating-sum" id="floatingSum">0 so'm</strong>
+      </div>
+    </div>
+    <button class="floating-order-btn" id="floatingOrderBtn">
+      <span>Buyurtmani ko'rish</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <!-- QULAY ZAKAZ VA BUYURTMA RASMIYLASHTIRISH PANELI -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="order-drawer" id="cartDrawer">
+    <div class="order-drawer-header">
+      <div class="drawer-title-group">
+        <div class="drawer-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div>
+          <h3>Buyurtma rasmiylashtirish</h3>
+          <p class="drawer-subtitle">Taomlarni tekshiring va buyurtma bering</p>
+        </div>
+      </div>
+      <button class="close-cart-btn" id="closeCartBtn" title="Yopish">&times;</button>
+    </div>
+
+    <div class="order-drawer-body">
+      <!-- Buyurtma turi -->
+      <div class="order-type-selector">
+        <label class="order-type-card active" id="typeDineIn">
+          <input type="radio" name="orderType" value="dine_in" checked>
+          <div class="order-type-content">
+            <i class="fa-solid fa-chair"></i>
+            <span>Stolda o'tirish</span>
+          </div>
+        </label>
+        <label class="order-type-card" id="typeTakeaway">
+          <input type="radio" name="orderType" value="takeaway">
+          <div class="order-type-content">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Olib ketish</span>
+          </div>
+        </label>
+        <label class="order-type-card" id="typeDelivery">
+          <input type="radio" name="orderType" value="delivery">
+          <div class="order-type-content">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span>Yetkazib berish</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- Mijoz va stol ma'lumotlari -->
+      <div class="order-form-grid">
+        <div class="form-group" id="tableGroup">
+          <label for="tableNumber"><i class="fa-solid fa-hashtag"></i> Stol raqami (Zal)</label>
+          <div class="table-input-wrap">
+            <input type="number" id="tableNumber" min="1" max="50" placeholder="Stol №" value="1">
+            <div class="quick-tables">
+              <button type="button" class="quick-table-btn" onclick="setTable(1)">№1</button>
+              <button type="button" class="quick-table-btn" onclick="setTable(3)">№3</button>
+              <button type="button" class="quick-table-btn" onclick="setTable(5)">№5</button>
+              <button type="button" class="quick-table-btn" onclick="setTable(7)">№7</button>
+              <button type="button" class="quick-table-btn" onclick="setTable(12)">№12</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="addressGroup" style="display: none;">
+          <label for="deliveryAddress"><i class="fa-solid fa-location-dot"></i> Yetkazib berish manzili</label>
+          <input type="text" id="deliveryAddress" placeholder="Ko'cha, uy, xonadon raqami...">
+        </div>
+
+        <div class="form-group">
+          <label for="customerName"><i class="fa-regular fa-user"></i> Ismingiz</label>
+          <input type="text" id="customerName" placeholder="Mijoz ismi">
+        </div>
+
+        <div class="form-group">
+          <label for="orderNote"><i class="fa-regular fa-comment-dots"></i> Qo'shimcha istaklar (izoh)</label>
+          <input type="text" id="orderNote" placeholder="Masalan: Achchiqsiz, choy issiq bo'lsin...">
+        </div>
+
+        <div class="form-group">
+          <label><i class="fa-regular fa-credit-card"></i> To'lov usuli</label>
+          <div class="payment-methods">
+            <label class="payment-method-card active">
+              <input type="radio" name="paymentMethod" value="Naqd pul" checked>
+              <span>💵 Naqd pul</span>
+            </label>
+            <label class="payment-method-card">
+              <input type="radio" name="paymentMethod" value="Click / Payme">
+              <span>💳 Click / Payme</span>
+            </label>
+            <label class="payment-method-card">
+              <input type="radio" name="paymentMethod" value="Terminal">
+              <span>🏦 Terminal</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tanlangan taomlar ro'yxati -->
+      <div class="selected-items-section">
+        <div class="items-section-header">
+          <h4><i class="fa-solid fa-list-check"></i> Tanlangan taomlar (<span id="itemsListCount">0</span>)</h4>
+          <button class="clear-cart-btn" id="clearCartBtn" title="Barchasini tozalash">
+            <i class="fa-regular fa-trash-can"></i> Tozalash
+          </button>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+          <div class="empty-cart-msg">
+            <i class="fa-solid fa-basket-shopping empty-icon"></i>
+            <p>Hozircha hech narsa tanlanmadi</p>
+            <span>Menudan o'zingiz yoqtirgan taomlarni qo'shing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zakaz paneli quyi qismi -->
+    <div class="order-drawer-footer">
+      <div class="bill-summary">
+        <div class="bill-row">
+          <span>Taomlar summasi:</span>
+          <span id="subtotalSum">0 so'm</span>
+        </div>
+        <div class="bill-row">
+          <span>Xizmat ko'rsatish (10%):</span>
+          <span id="serviceFeeSum">0 so'm</span>
+        </div>
+        <div class="bill-row total-row">
+          <span>Jami to'lov:</span>
+          <strong id="cartTotalSum">0 so'm</strong>
+        </div>
+      </div>
+
+      <button class="order-submit-btn" id="checkoutBtn">
+        <i class="fa-solid fa-receipt"></i>
+        <span>Buyurtma berish & Chek olish</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- OQ QOG'OZDA RESTORAN CHEKI MODALI -->
+  <div class="receipt-modal-overlay" id="receiptModalOverlay">
+    <div class="receipt-modal-container">
+      
+      <!-- Chek tepasidagi boshqaruv tugmalari -->
+      <div class="receipt-actions-header">
+        <div class="printer-indicator" id="printerStatus">
+          <div class="printer-light" id="printerLight"></div>
+          <span>Printer: <strong id="printerStatusText">Ulanmagan</strong></span>
+          <button class="connect-printer-btn" id="connectPrinterBtn" title="Printer ulash">
+            <i class="fa-solid fa-plug"></i> Ulash
+          </button>
+        </div>
+        <div class="receipt-header-btns">
+          <button class="action-btn print-btn" id="printReceiptBtn" title="Chekni chop etish">
+            <i class="fa-solid fa-print"></i> Chop etish
+          </button>
+          <button class="action-btn gallery-btn" id="saveGalleryHeaderBtn" title="Galeriyaga saqlash">
+            <i class="fa-solid fa-download"></i> Saqlash
+          </button>
+          <button class="action-btn close-receipt-btn" id="closeReceiptBtn" title="Yopish">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- OQ QOG'OZ CHEK SHABLONI -->
+      <div class="receipt-scroll-wrapper">
+        <div class="receipt-paper" id="receiptPaper">
+          <div class="receipt-sawtooth-top"></div>
+          
+          <div class="receipt-inner">
+            <div class="receipt-brand-header">
+              <div class="receipt-brand-icon"><i class="fa-solid fa-utensils"></i></div>
+              <h2 class="receipt-title">DASTURXON MENU</h2>
+              <p class="receipt-subtitle">MILLIY TAOMLAR VA SHINAM MASKAN</p>
+              <div class="receipt-dashed-line"></div>
+              <div class="receipt-info-rows">
+                <p><span>Manzil:</span> Toshkent sh., Chilonzor tumani</p>
+                <p><span>Tel:</span> +998 (90) 123-45-67</p>
+                <p><span>STIR:</span> 304 819 201</p>
+              </div>
+              <div class="receipt-dashed-line"></div>
+              <div class="receipt-badge-title">*** RASMIY BUYURTMA CHEKI ***</div>
+            </div>
+
+            <div class="receipt-meta" id="receiptMeta">
+              <!-- JS orqali to'ldiriladi -->
+            </div>
+
+            <div class="receipt-solid-line"></div>
+
+            <table class="receipt-table">
+              <thead>
+                <tr>
+                  <th class="col-name">TAOM NOMI</th>
+                  <th class="col-qty">SONI</th>
+                  <th class="col-price">NARX</th>
+                  <th class="col-total">JAMI</th>
+                </tr>
+              </thead>
+              <tbody id="receiptTableBody">
+                <!-- JS orqali to'ldiriladi -->
+              </tbody>
+            </table>
+
+            <div class="receipt-dashed-line"></div>
+
+            <div class="receipt-calculations" id="receiptCalculations">
+              <!-- JS orqali to'ldiriladi -->
+            </div>
+
+            <div class="receipt-solid-line"></div>
+
+            <div class="receipt-footer-section">
+              <div class="receipt-qr-area">
+                <div class="receipt-qr-code">
+                  <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <div class="qr-info">
+                  <strong>Elektron fiskal chek</strong>
+                  <span id="receiptFiscalCode">RH-9821-X</span>
+                </div>
+              </div>
+
+              <div class="receipt-barcode-wrap">
+                <div class="receipt-barcode-lines">|||||| | |||| | |||||||| | |||| ||||</div>
+                <span class="barcode-number" id="receiptBarcodeNum">84920491823901</span>
+              </div>
+
+              <div class="receipt-thankyou">
+                <p class="thanks-title">TASHRIFINGIZ UCHUN RAHMAT!</p>
+                <p class="wish-text">Yoqimli ishtaha! Sizni yana kutib qolamiz.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="receipt-sawtooth-bottom"></div>
+        </div>
+      </div>
+
+      <div class="receipt-modal-footer">
+        <button class="save-gallery-btn print-receipt-main-btn" id="printReceiptFooterBtn">
+          <i class="fa-solid fa-print"></i> Chop etish
+        </button>
+        <button class="save-gallery-btn" id="saveGalleryBtn">
+          <i class="fa-solid fa-image"></i> Galeriyaga saqlash
+        </button>
+        <button class="new-order-btn" id="newOrderBtn">
+          <i class="fa-solid fa-rotate-left"></i> Yangi buyurtma boshlash
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST BILDIRISHNOMA -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i>
+    <span id="toastText">Chek muvaffaqiyatli saqlandi!</span>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <i class="fa-solid fa-utensils"></i>
+            <span>DASTURXON <span>MENU</span></span>
+          </div>
+          <p class="footer-desc">Eng mazali milliy taomlar va xushbo'y choylar maskani.</p>
+        </div>
+
+        <div class="footer-social">
+          <span class="social-title">Biz ijtimoiy tarmoqlarda:</span>
+          <div class="social-links">
+            <a href="https://instagram.com/dasturxon.menu" target="_blank" rel="noopener noreferrer" class="social-btn instagram" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+              <span>Instagram</span>
+            </a>
+            <a href="https://t.me/dasturxon_menu" target="_blank" rel="noopener noreferrer" class="social-btn telegram" aria-label="Telegram">
+              <i class="fa-brands fa-telegram"></i>
+              <span>Telegram</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Dasturxon Menu. Barcha huquqlar himoyalangan. <a href="admin.html" class="admin-link" title="Admin Panel"><i class="fa-solid fa-shield-halved"></i> Admin</a></p>
+        <p class="footer-address"><i class="fa-solid fa-location-dot"></i> Toshkent sh., Chilonzor tumani</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- HTML2CANVAS (CHEKNI RASM QILIB GALERIYAGA YUKLASH UCHUN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

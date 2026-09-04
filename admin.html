@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dasturxon Menu — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- LOGIN EKRANI -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+      <div class="login-icon">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h2>Admin Panel</h2>
+      <p>Kirish uchun parolni kiriting</p>
+      <form id="loginForm" autocomplete="off">
+        <div class="login-input-wrap">
+          <i class="fa-solid fa-key"></i>
+          <input type="password" id="loginPassword" placeholder="Parolni kiriting..." autofocus>
+          <button type="button" class="toggle-pass-btn" id="togglePassBtn" title="Parolni ko'rish">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <div class="login-error" id="loginError">Noto'g'ri parol! Qaytadan urinib ko'ring.</div>
+        <button type="submit" class="login-submit-btn">
+          <i class="fa-solid fa-right-to-bracket"></i> Kirish
+        </button>
+      </form>
+      <a href="index.html" class="login-back-link"><i class="fa-solid fa-arrow-left"></i> Menyuga qaytish</a>
+    </div>
+  </div>
+
+  <!-- ASOSIY ADMIN CONTENT (parol kiritilgandan keyin ko'rinadi) -->
+  <div id="adminContent" style="display:none;">
+
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="index.html" class="back-btn" title="Menyuga qaytish">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="admin-logo">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>DASTURXON <strong>ADMIN</strong></span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="admin-badge"><i class="fa-solid fa-user-shield"></i> Admin</span>
+        <span class="item-count-badge" id="totalItemsCount">0 ta mahsulot</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATISTIKA KARTALARI -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" id="statTotal">0</span>
+          <span class="stat-label">Jami taomlar</span>
+        </div>
+      </div>
+      <div class="stat-card stat-milliy">
+        <div class="stat-icon"><i class="fa-solid fa-bowl-food"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" id="statMilliy">0</span>
+          <span class="stat-label">Milliy taomlar</span>
+        </div>
+      </div>
+      <div class="stat-card stat-kabob">
+        <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" id="statKabob">0</span>
+          <span class="stat-label">Kabob & Shashlik</span>
+        </div>
+      </div>
+      <div class="stat-card stat-ichimlik">
+        <div class="stat-icon"><i class="fa-solid fa-mug-hot"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" id="statIchimlik">0</span>
+          <span class="stat-label">Ichimliklar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="admin-main">
+    <!-- QO'SHISH / TAHRIRLASH FORMASI -->
+    <div class="admin-card form-card" id="itemFormCard">
+      <div class="card-header">
+        <h2 id="formTitle"><i class="fa-solid fa-plus-circle"></i> Yangi taom qo'shish</h2>
+        <button class="close-form-btn" id="cancelEditBtn" style="display:none;" title="Bekor qilish">
+          <i class="fa-solid fa-xmark"></i> Bekor qilish
+        </button>
+      </div>
+      <form id="itemForm" autocomplete="off">
+        <input type="hidden" id="editId" value="">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="inputTitle"><i class="fa-solid fa-tag"></i> Taom nomi *</label>
+            <input type="text" id="inputTitle" placeholder="Masalan: Toshkentcha To'y Oshi" required>
+          </div>
+          <div class="form-field">
+            <label for="inputCategory"><i class="fa-solid fa-layer-group"></i> Kategoriya *</label>
+            <select id="inputCategory" required>
+              <option value="">— Tanlang —</option>
+              <option value="milliy">Milliy Taomlar</option>
+              <option value="kabob">Kabob & Shashlik</option>
+              <option value="suyuq">Suyuq Taomlar</option>
+              <option value="salat">Salatlar</option>
+              <option value="ichimlik">☕ Issiq Choylar</option>
+              <option value="salqin">🥤 Salqin Ichimliklar</option>
+              <option value="energetik">⚡ Energetiklar</option>
+              <option value="shirinlik">🍰 Shirinliklar</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="inputBadge"><i class="fa-solid fa-award"></i> Badge (teg)</label>
+            <input type="text" id="inputBadge" placeholder="Masalan: Xit, Yangi, AKSIYA">
+          </div>
+          <div class="form-field">
+            <label for="inputPrice"><i class="fa-solid fa-coins"></i> Narxi (so'm) *</label>
+            <input type="number" id="inputPrice" placeholder="Masalan: 38000" min="0" required>
+          </div>
+          <div class="form-field full-width">
+            <label for="inputDesc"><i class="fa-solid fa-align-left"></i> Tavsif</label>
+            <textarea id="inputDesc" rows="3" placeholder="Taomning qisqacha tavsifi..."></textarea>
+          </div>
+          <div class="form-field full-width">
+            <label for="inputImage"><i class="fa-solid fa-image"></i> Rasm URL</label>
+            <input type="url" id="inputImage" placeholder="https://example.com/rasm.jpg">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fa-solid fa-plus"></i> Qo'shish
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- QIDIRUV VA FILTR -->
+    <div class="admin-card filter-card">
+      <div class="filter-row">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="adminSearchInput" placeholder="Taom nomi bo'yicha qidirish...">
+        </div>
+        <select id="adminCategoryFilter" class="filter-select">
+          <option value="all">Barcha kategoriyalar</option>
+          <option value="milliy">Milliy Taomlar</option>
+          <option value="kabob">Kabob & Shashlik</option>
+          <option value="suyuq">Suyuq Taomlar</option>
+          <option value="salat">Salatlar</option>
+          <option value="ichimlik">☕ Issiq Choylar</option>
+          <option value="salqin">🥤 Salqin Ichimliklar</option>
+          <option value="energetik">⚡ Energetiklar</option>
+          <option value="shirinlik">🍰 Shirinliklar</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TAOMLAR RO'YXATI -->
+    <div class="admin-card table-card">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-list"></i> Taomlar ro'yxati</h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="admin-table" id="adminTable">
+          <thead>
+            <tr>
+              <th class="col-id">ID</th>
+              <th class="col-img">Rasm</th>
+              <th class="col-name">Nomi</th>
+              <th class="col-cat">Kategoriya</th>
+              <th class="col-badge">Badge</th>
+              <th class="col-price">Narxi</th>
+              <th class="col-actions">Amallar</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- JS to'ldiradi -->
+          </tbody>
+        </table>
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <i class="fa-solid fa-folder-open"></i>
+          <p>Taomlar topilmadi</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAROL O'ZGARTIRISH -->
+    <div class="admin-card settings-card">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-key"></i> Parolni o'zgartirish</h2>
+      </div>
+      <div class="settings-body">
+        <form id="changePassForm" class="change-pass-form">
+          <div class="form-field">
+            <label for="currentPassInput"><i class="fa-solid fa-lock"></i> Hozirgi parol</label>
+            <div class="pass-input-wrap">
+              <input type="password" id="currentPassInput" placeholder="Hozirgi parolni kiriting..." required>
+              <button type="button" class="toggle-pass-btn" title="Parolni ko'rish"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="newPassInput"><i class="fa-solid fa-key"></i> Yangi parol</label>
+            <div class="pass-input-wrap">
+              <input type="password" id="newPassInput" placeholder="Yangi parolni kiriting..." minlength="4" required>
+              <button type="button" class="toggle-pass-btn" title="Parolni ko'rish"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="confirmPassInput"><i class="fa-solid fa-shield-halved"></i> Yangi parolni tasdiqlang</label>
+            <div class="pass-input-wrap">
+              <input type="password" id="confirmPassInput" placeholder="Yangi parolni qaytadan kiriting..." minlength="4" required>
+              <button type="button" class="toggle-pass-btn" title="Parolni ko'rish"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="pass-error" id="passError"></div>
+          <div class="pass-success" id="passSuccess"><i class="fa-solid fa-circle-check"></i> Parol muvaffaqiyatli o'zgartirildi!</div>
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-check"></i> Parolni saqlash
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- YANGI BUYURTMALAR -->
+    <div class="admin-card orders-card" id="ordersCard">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-bell"></i> Yangi buyurtmalar <span class="new-orders-badge" id="newOrdersBadge">0</span></h2>
+        <button class="close-form-btn" id="clearReadOrdersBtn" style="display:none;">
+          <i class="fa-solid fa-check-double"></i> Hammasini o'qilgan qilish
+        </button>
+      </div>
+      <div class="orders-list" id="ordersList">
+        <div class="empty-state" id="ordersEmptyState">
+          <i class="fa-solid fa-inbox"></i>
+          <p>Hozircha buyurtmalar yo'q</p>
+          <span>Menudan buyurtma berilganda shu yerda ko'rinadi</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- O'CHIRISH TASDIQLASH MODALI -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal-box">
+      <div class="modal-icon danger">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3>O'chirishni tasdiqlaysizmi?</h3>
+      <p id="deleteItemName">Bu taom butunlay o'chiriladi.</p>
+      <div class="modal-actions">
+        <button class="modal-btn cancel" id="cancelDeleteBtn">Bekor qilish</button>
+        <button class="modal-btn danger" id="confirmDeleteBtn">Ha, o'chirish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="adminToast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="adminToastText">Amal bajarildi!</span>
+  </div>
+
+  </div><!-- /adminContent -->
+
+  <script src="admin.js"></script>
+</body>
+</html>
